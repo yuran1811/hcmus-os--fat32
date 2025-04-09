@@ -3,7 +3,6 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.6.5",
   "description": "A robust, powerful disk manager",
   "author": "yuran1811",
   "license": "MIT",
