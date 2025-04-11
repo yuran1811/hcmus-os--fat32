@@ -1,6 +1,6 @@
 [package]
 name = "yupartify"
-version = "0.1.0"
+version = "0.1.1"
 description = "A robust, powerful disk inspector"
 authors = ["yuran1811"]
 license = "MIT"
