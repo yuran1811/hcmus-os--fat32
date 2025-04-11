@@ -12,12 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: macos-latest # Arm based macs
-            args: --target aarch64-apple-darwin
-          - platform: macos-latest # Intel based macs
-            args: --target x86_64-apple-darwin
-          - platform: ubuntu-22.04
-            args: ''
+          # - platform: macos-latest # Arm based macs
+          #   args: --target aarch64-apple-darwin
+          # - platform: macos-latest # Intel based macs
+          #   args: --target x86_64-apple-darwin
+          # - platform: ubuntu-22.04
+          #   args: ''
           - platform: windows-latest
             args: ''
 
@@ -46,7 +46,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.6.2
+          version: 10.6.5
 
       - name: install frontend dependencies
         run: pnpm install
