@@ -13,7 +13,7 @@ use yupartify_lib::{
             clear_current_line, disable_raw_mode, enable_raw_mode, is_text_file, print_shell_help,
             print_shell_info,
         },
-        data::{parser::parse_file_content, reader::read_mbr_disk},
+        data::reader::read_mbr_disk,
         list_partitions::list_fat32_paritions,
     },
 };
@@ -148,7 +148,7 @@ fn main() -> Result<()> {
 
                         match fat.read_file(&filepath, Some(is_text)) {
                             Ok(data) => {
-                                println!("{}", parse_file_content(&data.0[..50.min(data.0.len())]));
+                                println!("{}", &data.1[..350.min(data.1.len())]);
                             }
                             Err(e) => {
                                 println!("[error] - {}", e)

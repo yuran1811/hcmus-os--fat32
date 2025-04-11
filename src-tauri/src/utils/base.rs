@@ -146,16 +146,17 @@ pub fn is_text_file(path: &str) -> io::Result<bool> {
         }
     }
 
-    let mut is_text = true;
-    for &byte in &buffer[..bytes_read] {
-        // Check if the byte is a printable ASCII character
-        if !(0x20..=0x7E).contains(&byte) && byte != 0x0A && byte != 0x0D {
-            is_text = false;
-            break;
-        }
-    }
+    // let mut is_text = true;
+    // for &byte in &buffer[..bytes_read] {
+    //     // Check if the byte is a printable ASCII character
+    //     if !(0x20..=0x7E).contains(&byte) && byte != 0x0A && byte != 0x0D {
+    //         is_text = false;
+    //         break;
+    //     }
+    // }
 
-    Ok(is_text)
+    // Ok(is_text)
+    Ok(true)
 }
 
 pub fn calc_fat32_used_space(

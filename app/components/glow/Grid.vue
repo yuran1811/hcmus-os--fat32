@@ -32,7 +32,7 @@ const features = [
     <slot />
 
     <div
-      class="relative grid w-full grid-cols-1 gap-6 px-24 pt-20 pb-52 md:grid-cols-3"
+      class="relative grid w-full grid-cols-1 gap-6 px-4 pt-20 pb-52 sm:px-8 md:grid-cols-2 md:px-20 lg:grid-cols-3"
     >
       <GlowElement
         v-for="feature in features"
