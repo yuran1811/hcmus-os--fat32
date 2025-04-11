@@ -37,9 +37,7 @@ const formattedSize = computed(() => {
     <div v-if="content" class="mt-6">
       <h4 class="mb-2 font-medium">Content Preview</h4>
       <div class="max-h-96 overflow-auto">
-        <ProsePre class="w-full rounded p-4 text-sm">
-          {{ content }}
-        </ProsePre>
+        <pre class="w-full pr-4 text-sm">{{ content }}</pre>
       </div>
     </div>
   </div>

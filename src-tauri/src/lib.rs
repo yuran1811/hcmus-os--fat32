@@ -1,6 +1,5 @@
 use std::{sync::Arc, time::Duration};
 
-use models::fat_fs::FAT32FileSystem;
 use serde_json::json;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 use tauri::{
@@ -18,11 +17,11 @@ pub mod utils;
 use crate::{
     fs_operations::get_file_metadata,
     models::{
-        fat_fs::FAT32,
+        fat_fs::{FAT32FileSystem, FAT32},
         fs::{DirectoryNode, FileMetadata},
         partition::PartitionInfo,
     },
-    utils::list_partitions::list_fat32_paritions_by_letter,
+    utils::{base::is_text_file, list_partitions::list_fat32_paritions_by_letter},
 };
 
 static mut GLOBAL_STORE: Option<Arc<Store<Wry>>> = None;
@@ -100,9 +99,12 @@ fn read_text_file(path: String) -> Result<String, String> {
     let cur_drive = cur_drive.unwrap();
     let part = format!("\\\\.\\{}", cur_drive["label"].as_str().unwrap());
     match FAT32::open(&part, None) {
-        Ok(mut f) => match f.read_file(&path, Some(true)) {
-            Ok((_, content)) => Ok(content),
-            Err(_) => Err("Error reading file".to_string()),
+        Ok(mut f) => match is_text_file(&path) {
+            Ok(is_text) => match f.read_file(&path, Some(is_text)) {
+                Ok((_, content)) => Ok(content),
+                Err(_) => Err("Error reading file".to_string()),
+            },
+            Err(_) => Err("Error checking file type".to_string()),
         },
         Err(_) => Err("Error opening FAT32".to_string()),
     }
