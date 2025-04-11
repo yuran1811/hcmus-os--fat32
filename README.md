@@ -12,10 +12,7 @@
   <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/yuran1811/hcmus-os--fat32">
 </p>
 
-<div style="display:flex;gap: 24px;justify-content:center">
-  <a href="" target="_blank">Live Demo</a>
-  <a href="https://github.com/yuran1811/hcmus-os--fat32/releases" target="_blank">Releases</a>
-</div>
+<div align="center"><a href="https://github.com/yuran1811/hcmus-os--fat32/releases" target="_blank">Releases</a></div>
 
 ## Tech Stack
 
