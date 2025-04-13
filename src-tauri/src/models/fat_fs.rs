@@ -86,7 +86,8 @@ impl FATEntry {
     pub fn is_valid(&self, name: &str) -> bool {
         self.is_active()
             && !self.name.is_empty()
-            && self.name.to_uppercase().trim() == name.to_uppercase().trim()
+            && (self.short_name.to_uppercase().trim() == name.to_uppercase().trim()
+                || self.name.trim() == name.trim())
     }
 }
 
