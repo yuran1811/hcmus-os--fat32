@@ -53,25 +53,19 @@ cd hcmus-os--fat32
 
 **Installation**
 
-Install the project dependencies:
+- Enable `pnpm` to build and run the project
 
 ```bash
-npm install
+corepack enable pnpm
 ```
 
-or
+Install the project dependencies:
 
 ```bash
 pnpm install
 ```
 
 **Running the Project**
-
-```bash
-npm run tauri:dev
-```
-
-or
 
 ```bash
 pnpm tauri:dev
