@@ -13,8 +13,7 @@ use yupartify_lib::{
             clear_current_line, disable_raw_mode, enable_raw_mode, is_text_file, print_shell_help,
             print_shell_info,
         },
-        data::reader::read_mbr_disk,
-        list_partitions::list_fat32_paritions,
+        list_partitions::list_fat32_paritions_by_letter,
     },
 };
 
@@ -30,7 +29,7 @@ fn read_input(hist: &Vec<String>, prompt: &str) -> String {
 
 fn main() -> Result<()> {
     println!("[info] - Scanning disk images to find FAT32 partitions...");
-    let fat32_partitions = list_fat32_paritions();
+    let fat32_partitions = list_fat32_paritions_by_letter();
     if fat32_partitions.len() == 0 {
         eprintln!("[err] - No FAT32 partitions found.");
         return Ok(());
@@ -38,10 +37,10 @@ fn main() -> Result<()> {
 
     // Display the list of FAT32 partitions found
     println!("+ Found {} FAT32 partitions:", fat32_partitions.len());
-    for (i, (part, _)) in fat32_partitions.iter().enumerate() {
+    for (i, part) in fat32_partitions.iter().enumerate() {
         println!(
-            "  | [{}] - {} (size: {} bytes)",
-            i, part.raw_label, part.size
+            "  | {}: {} ({}) (size: {} bytes)",
+            i, part.drive_letter, part.label, part.total_size
         );
     }
     println!(
@@ -62,15 +61,16 @@ fn main() -> Result<()> {
             println!("[err] - Invalid partition selected. Try again.");
         }
     }
-    let selected_part = fat32_partitions[part_idx as usize].clone();
     println!(
-        "[info] - Opening partition: {} (size: {} bytes)",
-        selected_part.0.raw_label, selected_part.0.size
+        "[info] - Opening partition: {}",
+        fat32_partitions[part_idx as usize].label
     );
 
-    // Read the MBR of the selected partition
-    let raw_part_info = read_mbr_disk(&selected_part.1, Some(part_idx as usize))?;
-    let mut fat = FAT32::open(r"\\.\F:", Some(raw_part_info[0].clone()))?;
+    let part_path = format!(
+        "\\\\.\\{}",
+        fat32_partitions[part_idx as usize].drive_letter
+    );
+    let mut fat = FAT32::open(&part_path, None)?;
     print_shell_info();
 
     // Main loop for shell commands
